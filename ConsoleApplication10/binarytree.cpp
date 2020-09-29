@@ -70,6 +70,16 @@ void insert2(BiTree& T, ElemType x) //单链树(无右节点）
     }
 }
 
+void buildTree(BiTree T, vector<ElemType> a, vector<ElemType> b) //a先序遍历序列 b后序遍历序列
+{
+    T->data = a[0];
+    for (auto i = 0; i < a.size(); i++)
+    {
+        a[0];
+    }
+}
+
+
 void preOrder(BiTree T) //前序遍历
 {
     if (T != NULL)
@@ -199,7 +209,7 @@ void levelOrder(BiTree T) //层序遍历
     }
 }
 
-int searchTreeDeepth(BiTree T) //返回二叉树深度（节点最大层数） 根节点深度为一
+int deepth(BiTree T) //返回二叉树深度（节点最大层数） 根节点深度为一
 {
     BiTNode* p = T;
     BiTNode* r = T;
@@ -242,7 +252,23 @@ int searchTreeDeepth(BiTree T) //返回二叉树深度（节点最大层数） �
     return maxLayer;
 }
 
-
+int deepth2(BiTree T)
+{
+    if (T == NULL)
+    {
+        return 0;
+    }
+    int ldept = deepth2(T->lChild);
+    int rdept = deepth2(T->rChild);
+    if (ldept > rdept)
+    {
+        return ldept + 1;
+    }
+    else
+    {
+        return rdept + 1;
+    }
+}
 
 void levelOrder2(BiTree T) // 自下而上 自右到左的层序遍历
 {
@@ -283,8 +309,8 @@ int main()
         insert(T, i);
     }
  
-    inOrder(T);
-    cout << searchTreeDeepth(T);
+    //inOrder(T);
+    cout << deepth2(T);
 }
 
 
