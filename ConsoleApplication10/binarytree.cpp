@@ -70,6 +70,7 @@ void insert2(BiTree& T, ElemType x) //单链树(无右节点）
     }
 }
 
+//未完成
 void buildTree(BiTree T, vector<ElemType> a, vector<ElemType> b) //a先序遍历序列 b后序遍历序列
 {
     T->data = a[0];
@@ -79,6 +80,42 @@ void buildTree(BiTree T, vector<ElemType> a, vector<ElemType> b) //a先序遍历
     }
 }
 
+bool isCompleteBinaryTree(BiTree T)
+{
+    BiTNode* p = T;
+    queue<BiTnode*> Q;
+    Q.push(T);
+    while (!Q.empty())
+    {
+        p = Q.front();
+        Q.pop();
+
+        //叶节点无操作
+        if (p->lChild == NULL && p->rChild == NULL)
+        {
+            continue;
+        }
+
+        if (p->lChild != NULL)
+        {
+            Q.push(p->lChild);
+        }
+        if (p->rChild != NULL)
+        {
+            Q.push(p->rChild);
+        }
+
+        if ((p->lChild == NULL) && (p->rChild != NULL))
+        {
+                return false;
+        }
+        if ((p->rChild == NULL) && !Q.empty())
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
 void preOrder(BiTree T) //前序遍历
 {
@@ -306,11 +343,17 @@ int main()
     T->rChild = nullptr;
     for (int i = 0; i < 10; i++)
     {
-        insert(T, i);
+        insert2(T, i);
     }
- 
+
     //inOrder(T);
-    cout << deepth2(T);
+    cout << deepth2(T) << endl;
+    if (isCompleteBinaryTree(T))
+        cout << "是完全二叉树" << endl;
+    else
+    {
+        cout << "不是完全二叉树" << endl;
+    }
 }
 
 
